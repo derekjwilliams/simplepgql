@@ -5,10 +5,10 @@ const ConnectionFilterPlugin = require("postgraphile-plugin-connection-filter");
 
 const dbSchema = process.env.SCHEMA_NAMES
   ? process.env.SCHEMA_NAMES.split(",")
-  : ["public"];
+  : ["Identity"];
 
 const pgPool = new pg.Pool({
-  connectionString: (process.env.DATABASE_URL || 'postgres://postgres:postgres@localhost/public'),   
+  connectionString: (process.env.DATABASE_URL || 'postgres://postgres:postgres@127.0.0.1/postgres'),   
 });
 
 const postGraphileOptions = {
@@ -36,7 +36,7 @@ async function main() {
     tracing: true
   });
 
-  const { url } = await server.listen(5002);
+  const { url } = await server.listen(5000);
   console.log(`🚀 Server ready at ${url}/graphql, Graphiql at ${url}/graphiql`);
 }
 
