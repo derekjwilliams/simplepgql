@@ -5,10 +5,10 @@ const ConnectionFilterPlugin = require("postgraphile-plugin-connection-filter");
 
 const dbSchema = process.env.SCHEMA_NAMES
   ? process.env.SCHEMA_NAMES.split(",")
-  : ["Identity"];
+  : ["lilac"];
 
 const pgPool = new pg.Pool({
-  connectionString: (process.env.DATABASE_URL || 'postgres://postgres:postgres@127.0.0.1/postgres'),   
+  connectionString: (process.env.DATABASE_URL || 'postgres://postgres:postgres@127.0.0.1/blog'),
 });
 
 const postGraphileOptions = {
@@ -22,14 +22,12 @@ const postGraphileOptions = {
 console.log(JSON.stringify(pgPool))
 
 async function main() {
-  // See https://www.graphile.org/postgraphile/usage-schema/ for schema-only usage guidance
   const { schema, plugin } = await makeSchemaAndPlugin(
     pgPool,
     dbSchema,
     postGraphileOptions
   );
 
-  // See https://www.apollographql.com/docs/apollo-server/api/apollo-server.html#ApolloServer
   const server = new ApolloServer({
     schema,
     plugins: [plugin],
