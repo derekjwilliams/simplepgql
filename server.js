@@ -1,12 +1,13 @@
-const pg = require("pg");
-const { ApolloServer } = require("apollo-server");
-const { makeSchemaAndPlugin } = require("postgraphile-apollo-server");
-const ConnectionFilterPlugin = require("postgraphile-plugin-connection-filter");
-const PgManyToManyPlugin = require("@graphile-contrib/pg-many-to-many");
+const pg = require('pg');
+const { ApolloServer } = require('apollo-server');
+const { makeSchemaAndPlugin } = require('postgraphile-apollo-server');
+const ConnectionFilterPlugin = require('postgraphile-plugin-connection-filter');
+const PgManyToManyPlugin = require('@graphile-contrib/pg-many-to-many');
+
 
 const dbSchema = process.env.SCHEMA_NAMES
-  ? process.env.SCHEMA_NAMES.split(",")
-  : ["lilac"];
+  ? process.env.SCHEMA_NAMES.split(',')
+  : ['lilac'];
 
 const pgPool = new pg.Pool({
   connectionString: (process.env.DATABASE_URL || 'postgres://postgres:postgres@127.0.0.1/blog'),
@@ -17,7 +18,7 @@ const postGraphileOptions = {
   graphileBuildOptions: {
     connectionFilterRelations: true,
   },
-  exportGqlSchemaPath: "schema.graphql",
+  exportGqlSchemaPath: 'schema.graphql',
   subscriptions: true,
   graphiql: true,
   dynamicJson: true,
@@ -27,8 +28,6 @@ const postGraphileOptions = {
     return true;
   },
 };
-
-console.log(JSON.stringify(pgPool))
 
 async function main() {
   const { schema, plugin } = await makeSchemaAndPlugin(
