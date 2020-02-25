@@ -14,3 +14,7 @@ If not provided the connection string is ```postgres://postgres:postgres@localho
 ### Docker
 
 Simplest possible Dockerfile is also provided.
+
+### Command line for explaining queries
+
+npx postgraphile -c postgres://postgres:postgres@127.0.0.1/blog --watch --enhce-graphiql --allow-explain
